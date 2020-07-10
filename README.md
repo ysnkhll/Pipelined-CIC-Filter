@@ -3,8 +3,6 @@ A pipelined VHDL implementation of Eugene B. Hogenauer's Cascaded integrator–c
 
 ## Implementation:
 This implementation allows one to instantiate a CIC module according to thier design parameters.
-
----
 Mainly,
 
 * B<sub>in</sub> = input sample precision
@@ -12,14 +10,14 @@ Mainly,
 * M = number of samples per stage (usually 1 but sometimes 2)
 * N = number of stages in filter
 
-*B<sub>max</sub>*, the filters bit growth is calculated as,
+*B<sub>max</sub>* is the filters bit growth and it is calculated as,
 
 ![equations](https://wikimedia.org/api/rest_v1/media/math/render/svg/fb0381ebbfc3f455d48abe46e76761a054e3d624)
 
-*G*, the filters overall gain, is calculated as,
+*G* is the filters overall gain and is calculated as,
 
 
-## Refrences:
+## References:
 * Hogenauer, Eugene B. (April 1981). "An economical class of digital filters for decimation and interpolation". IEEE Transactions on Acoustics, Speech, and Signal Processing. 29 (2): 155–162. [doi:10.1109/TASSP.1981.1163535](https://doi.org/10.1109/TASSP.1981.1163535).
 * https://en.wikipedia.org/wiki/Cascaded_integrator-comb_filter
 
