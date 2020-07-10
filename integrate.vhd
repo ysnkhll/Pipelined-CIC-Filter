@@ -11,7 +11,7 @@ use ieee.std_logic_unsigned.all;
 
 entity integrate is
 	generic (
-		bin : natural := 24;
+		Bin : natural := 24;
 		R : natural := 8;
 		N : natural := 3;
 		M : natural := 1
@@ -19,14 +19,14 @@ entity integrate is
 	
 	port (
 		clk : in std_logic;
-		data_i : in signed(bin - 1 downto 0);
-		data_o : out signed(bin - 1 downto 0)
+		data_i : in signed(Bin - 1 downto 0);
+		data_o : out signed(Bin - 1 downto 0)
 	);
 end integrate;
 
 architecture arch of integrate is
-	constant bmax : integer := Bmax_calc(bin, R, N, M);
-	subtype regsize is signed(bmax - 1 downto 0);
+	constant Bmax : integer := Bmax_calc(Bin, R, N, M);
+	subtype regsize is signed(Bmax - 1 downto 0);
 	
 	signal int_r, int_out : regsize := (others => '0');
 begin
