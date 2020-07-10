@@ -12,7 +12,7 @@ Mainly,
 
 *B<sub>max</sub>* is the filters bit growth and it is calculated as,
 
-![equations](https://wikimedia.org/api/rest_v1/media/math/render/svg/fb0381ebbfc3f455d48abe46e76761a054e3d624)
+&nbsp;&nbsp;&nbsp;![equations](https://wikimedia.org/api/rest_v1/media/math/render/svg/fb0381ebbfc3f455d48abe46e76761a054e3d624)
 
 *G* is the filters overall gain and is calculated as,
 
