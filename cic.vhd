@@ -13,7 +13,7 @@ use work.common.all;
 
 entity cic is
 	generic (
-		bin : natural := 24;
+		Bin : natural := 24;
 		R : natural := 8;
 		N : natural := 3;
 		M : natural := 1
@@ -22,23 +22,23 @@ entity cic is
 	port (
 		clk : in std_logic;
 		rst_n : in std_logic;
-		data_i : in signed(bin - 1 downto 0);
+		data_i : in signed(Bin - 1 downto 0);
 		clk_o : out std_logic;
-		data_o : out signed(bin - 1 downto 0)
+		data_o : out signed(Bin - 1 downto 0)
 	);
 end cic;
 
 architecture rtl of cic is
-	-- Output word length (bmax) = N*log2(R*M) + bin
-	constant bmax : integer := Bmax_calc(bin, R, N, M);
+	-- Output word length (Bmax) = N*log2(R*M) + Bin
+	constant Bmax : integer := Bmax_calc(Bin, R, N, M);
 	-- Try and make sure the CIC gain is designed to be a power of 2.
-	constant gain : natural := Gain_calc(R, N, M);
-	subtype regsize is signed(bmax - 1 downto 0);
+	constant Gain : natural := Gain_calc(R, N, M);
+	subtype regsize is signed(Bmax - 1 downto 0);
 	type CASCADE_ARRAY is array (1 to N) of regsize;
 	type STATE_T is (hold, sample);
 	
-	signal data_i_r1 : signed(bin - 1 downto 0) := (others => '0');
-	signal data_i_r2 : signed(bin - 1 downto 0) := (others => '0');
+	signal data_i_r1 : signed(Bin - 1 downto 0) := (others => '0');
+	signal data_i_r2 : signed(Bin - 1 downto 0) := (others => '0');
 	signal sxt1 : regsize := (others => '0');
 	
 	signal int_in : regsize := (others => '0');
@@ -68,8 +68,8 @@ begin
 	-- -------------------------------------------------------------------------
 	SXT_1 : process(data_i_r1)
 	begin
-		sxt1(bin - 1 downto 0) <= data_i_r1;
-		for k in (bmax - 1) downto bin loop
+		sxt1(Bin - 1 downto 0) <= data_i_r1;
+		for k in (Bmax - 1) downto Bin loop
 			sxt1(k) <= data_i_r2(data_i_r2'high);
 		end loop;
 	end process SXT_1;
@@ -82,7 +82,7 @@ begin
 		-- Generate the first integrator filter.
 		GEN_INT_1 : if i = 1 generate
 		begin
-			INT_1 : entity integrate generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			INT_1 : entity integrate generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => sxt1,
 				data_o => int_data(i)
@@ -91,7 +91,7 @@ begin
 		-- Generate the i'th integrator filter.
 		GEN_INT_I : if ((i > 1) and (i < N)) generate
 		begin
-			INT_1 : entity integrate generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			INT_1 : entity integrate generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => int_data(i - 1),
 				data_o => int_data(i)
@@ -100,7 +100,7 @@ begin
 		-- Generate the N'th integrator filter.
 		GEN_INT_N : if i = 1 generate
 		begin
-			INT_1 : entity integrate generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			INT_1 : entity integrate generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => int_data(i - 1),
 				data_o => int_out
@@ -138,7 +138,7 @@ begin
 		-- Generate the first comb filter.
 		GEN_COMB_1 : if i = 1 generate
 		begin
-			CMB_1 : entity comb generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			CMB_1 : entity comb generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => int_out,
 				data_o => comb_data(i),
@@ -148,7 +148,7 @@ begin
 		-- Generate the i'th comb filter.
 		GEN_COMB_I : if ((i > 1) and (i < N)) generate
 		begin
-			CMB_1 : entity comb generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			CMB_1 : entity comb generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => comb_data(i - 1),
 				data_o => comb_data(i),
@@ -158,7 +158,7 @@ begin
 		-- Generate the N'th comb filter.
 		GEN_COMB_N : if i = 1 generate
 		begin
-			CMB_1 : entity comb generic map(bin=>bin, R=>R, N=>N, M=>M) port map (
+			CMB_1 : entity comb generic map(Bin=>Bin, R=>R, N=>N, M=>M) port map (
 				clk => clk,
 				data_i => comb_data(i - 1),
 				data_o => comb_out,
@@ -170,5 +170,5 @@ begin
 	-- -------------------------------------------------------------------------
 	--	Remove DC Gain and final bit truncation.
 	-- -------------------------------------------------------------------------
-	data_o <= shift_right(comb_out, gain)(bin - 1 downto 0);
+	data_o <= shift_right(comb_out, Gain)(Bin - 1 downto 0);
 end rtl;
