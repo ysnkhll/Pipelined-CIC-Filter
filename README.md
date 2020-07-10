@@ -12,10 +12,11 @@ Mainly,
 
 *B<sub>max</sub>* is the filters bit growth and it is calculated as,
 
-&nbsp;&nbsp;&nbsp;![equations](https://wikimedia.org/api/rest_v1/media/math/render/svg/fb0381ebbfc3f455d48abe46e76761a054e3d624)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=N\log_{2}(RM)">
 
 *G* is the filters overall gain and is calculated as,
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://render.githubusercontent.com/render/math?math=(RM)^{N}">
 
 ## References:
 * Hogenauer, Eugene B. (April 1981). "An economical class of digital filters for decimation and interpolation". IEEE Transactions on Acoustics, Speech, and Signal Processing. 29 (2): 155–162. [doi:10.1109/TASSP.1981.1163535](https://doi.org/10.1109/TASSP.1981.1163535).
