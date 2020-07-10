@@ -7,17 +7,16 @@ This implementation allows one to instantiate a CIC module according to thier de
 ---
 Mainly,
 
-B<sub>in</sub> = input sample precision
+* B<sub>in</sub> = input sample precision
+* R = decimation or interpolation ratio
+* M = number of samples per stage (usually 1 but sometimes 2)
+* N = number of stages in filter
 
-R = decimation or interpolation ratio
-M = number of samples per stage (usually 1 but sometimes 2)
-N = number of stages in filter
-
-B<sub>max</sub>, the filters bit growth is calculated as,
+*B<sub>max</sub>*, the filters bit growth is calculated as,
 
 ![equations](https://wikimedia.org/api/rest_v1/media/math/render/svg/fb0381ebbfc3f455d48abe46e76761a054e3d624)
 
-G, the filters overall gain, is calculated as,
+*G*, the filters overall gain, is calculated as,
 
 
 ## Refrences:
